@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Enqueue</string>
+    <string name="email_sender">tech@roninaks.com</string>
+    <string name="email_tech_support">tech@roninaks.com</string>
+    <string name="email_admin">tech@roninaks.com</string>
+    <string name="email_all">tech@roninaks.com</string>
+    <string name="master_url" />
+</resources>
