@@ -25,6 +25,17 @@
 
     <!-- Image Content Description -->
     <string name="main_background">Main Background Image</string>
+    <string name="application_logo">Application Logo</string>
+    <string name="email_hint">Enter email</string>
+    <string name="password_hint">Enter password</string>
+    <string name="back_navigation">Back Navigation</string>
+    <string name="spinner_down_arrow">Spinner Arrow</string>
+    <string name="add">Add</string>
+    <string name="service_logo">Service Provider Logo</string>
+    <string name="more">More</string>
+    <string name="search">Search</string>
+    <string name="enter_search_cost">Enter Text</string>
+    <string name="start_stop_service">Start or Stop Service</string>
 
 
     <string name="hello_blank_fragment">Welcome to Qmate</string>
@@ -75,16 +86,5 @@
     <string name="edit_token">Edit Token</string>
     <string name="create_token_et_phone">Phone</string>
     <string name="queue_edit_item">Edit Queue</string>
-    <string name="application_logo">Application Logo</string>
-    <string name="email_hint">Enter email</string>
-    <string name="password_hint">Enter password</string>
-    <string name="back_navigation">Back Navigation</string>
-    <string name="spinner_down_arrow">Spinner Arrow</string>
-    <string name="add">Add</string>
-    <string name="service_logo">Service Provider Logo</string>
-    <string name="more">More</string>
-    <string name="search">Search</string>
-    <string name="enter_search_cost">Enter Text</string>
-    <string name="start_stop_service">Start or Stop Service</string>
 
 </resources>
