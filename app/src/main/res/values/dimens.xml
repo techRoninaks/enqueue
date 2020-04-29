@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margin Sizes -->
+    <dimen name="main_margin">16dp</dimen>
+    <dimen name="standard_gap">8dp</dimen>
+    <dimen name="standard_gap_small">4dp</dimen>
+    <dimen name="standard_gap_extra_small">2dp</dimen>
+    <dimen name="standard_gap_medium">16dp</dimen>
+    <dimen name="standard_gap_large">24dp</dimen>
+    <dimen name="standard_gap_extra_large">32dp</dimen>
+
+    <!-- Font Sizes -->
+    <dimen name="super_title_size">18sp</dimen>
+    <dimen name="title_size">16sp</dimen>
+    <dimen name="subtitle_size">14sp</dimen>
+    <dimen name="stats_size">36sp</dimen>
+    <!--Services Page-->
+    <dimen name="services_logo_size">62dp</dimen>
+    <dimen name="card_elevation">20dp</dimen>
+    <dimen name="round_button_size">42dp</dimen>
+    <dimen name="services_more_padding_top_bottom">12dp</dimen>
+    <dimen name="more_icon_size">24dp</dimen>
+
+    <!-- Main Activity -->
+    <dimen name="back_navigation_width">15dp</dimen>
+    <dimen name="main_activity_top_margin">51dp</dimen>
+    <dimen name="main_activity_service_text_width">216dp</dimen>
+
+    <!-- Queue -->
+    <dimen name="token_background_size">65dp</dimen>
+    <dimen name="view_pager_height">210dp</dimen>
+    <dimen name="view_pager_side">100dp</dimen>
+    <dimen name="search_button_size">62dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+
+</resources>

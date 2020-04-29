@@ -45,26 +45,15 @@ public class SqlHelper {
     private String UploadFilePath;
     private HashMap<String, String> Extras;
 
-    //Constructors
-    public SqlHelper(Context context){
-        MasterUrl = context.getString(R.string.master_url);
-        this.context = context;
-        isService = false;
+    public SqlHelper(Context context, SqlDelegate sqlDelegate) {
+        this(context, sqlDelegate, "");
     }
-    public SqlHelper(Context context, SqlDelegate sqlDelegate){
-        this.context = context;
-        this.sqlDelegate = sqlDelegate;
-        MasterUrl = context.getString(R.string.master_url);
-        isService = false;
+
+    public SqlHelper(Context context, SqlDelegate sqlDelegate, String executePath) {
+        this(context, sqlDelegate, executePath, context.getString(R.string.master_url));
     }
-    public SqlHelper(Context context, SqlDelegate sqlDelegate, String executePath){
-        this.MasterUrl = context.getString(R.string.master_url);
-        this.context = context;
-        this.ExecutePath = executePath;
-        this.sqlDelegate = sqlDelegate;
-        isService = false;
-    }
-    public SqlHelper(Context context, SqlDelegate sqlDelegate, String masterUrl, String executePath){
+
+    public SqlHelper(Context context, SqlDelegate sqlDelegate, String executePath, String masterUrl) {
         this.context = context;
         this.sqlDelegate = sqlDelegate;
         this.MasterUrl = masterUrl;
@@ -93,13 +82,8 @@ public class SqlHelper {
         return ActionString;
     }
 
-    public String getStringResponse(String key) {
-        try {
-            return JSONResponse.getString(key);
-        } catch (Exception e){
-            Log.e("SqlHelper:getStringResp", e.getMessage());
-            return "exception";
-        }
+    public String getStringResponse() {
+        return StringResponse;
     }
 
     public SqlDelegate getSqlDelegate() {
@@ -122,7 +106,7 @@ public class SqlHelper {
         return Extras;
     }
 
-    public boolean isShowLoading(){
+    public boolean isShowLoading() {
         return showLoading;
     }
 
@@ -175,13 +159,13 @@ public class SqlHelper {
         Extras = extras;
     }
 
-    public void setService(boolean isService){
+    public void setService(boolean isService) {
         this.isService = isService;
     }
 
 
     //Public methods
-    public void executeUrl(Boolean showLoading){
+    public void executeUrl(Boolean showLoading) {
         this.showLoading = showLoading;
         LoadResponse loadResponse = new LoadResponse();
         loadResponse.execute();
@@ -192,7 +176,7 @@ public class SqlHelper {
         try {
             Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
             int returnVal = p1.waitFor();
-            boolean reachable = (returnVal==0);
+            boolean reachable = (returnVal == 0);
             return reachable;
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,7 +195,7 @@ public class SqlHelper {
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
-        for(Map.Entry<String,Object> entry : parameters.valueSet()){
+        for (Map.Entry<String, Object> entry : parameters.valueSet()) {
             if (first)
                 first = false;
             else
@@ -219,7 +203,7 @@ public class SqlHelper {
             try {
                 result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
                 result.append("=");
-                result.append(URLEncoder.encode(entry.getValue().toString(),"UTF-8"));
+                result.append(URLEncoder.encode(entry.getValue().toString(), "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -229,7 +213,7 @@ public class SqlHelper {
     }
 
     //Async Tasks
-    public class LoadResponse extends AsyncTask<Void, Void, Void>{
+    public class LoadResponse extends AsyncTask<Void, Void, Void> {
         TransparentProgressDialog pDialog;
         Boolean canceled = false;
 
@@ -293,11 +277,10 @@ public class SqlHelper {
                 StringResponse = response;
                 return null;
 //                }
-            } catch (Exception e){
+            } catch (Exception e) {
                 canceled = true;
             } finally {
-                if (httpURLConnection != null)
-                {
+                if (httpURLConnection != null) {
                     httpURLConnection.disconnect();
                 }
                 try {
@@ -314,23 +297,26 @@ public class SqlHelper {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if(showLoading) {
-                pDialog = new TransparentProgressDialog(context);
-                pDialog.setCancelable(false);
-                pDialog.show();
+            if (showLoading) {
+//                pDialog = new TransparentProgressDialog(context);
+//                pDialog.setCancelable(false);
+//                pDialog.show();
             }
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(showLoading)
-                pDialog.dismiss();
-            if(canceled && !isService){
+            if (showLoading) {
+//                pDialog.dismiss();
+            }
+            if (canceled && !isService) {
                 NoInternetActivity.sqlHelper = SqlHelper.this;
-                context.startActivity(new Intent(context, NoInternetActivity.class));
-            }else {
-                if(sqlDelegate != null) {
+                Intent intent = new Intent(context, NoInternetActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            } else {
+                if (sqlDelegate != null) {
                     sqlDelegate.onResponse(SqlHelper.this);
                 }
             }

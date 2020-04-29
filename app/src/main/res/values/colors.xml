@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#F7931E</color>
+    <color name="colorPrimaryDark">#F7931E</color>
+    <color name="colorAccent">#D2F2994A</color>
+    <color name="white_bg">#ffffff</color>
+    <color name="colorStringActive">@color/colorPrimary</color>
+    <color name="colorStringInActive">#DB1B1B</color>
+    <color name="colorStringBreak">@color/colorTextBlackDisabled</color>
+    <color name="colorStringCompleted">#78DF74</color>
+
+
+    <!-- Black Text -->
+    <color name="colorTextBlackPrimary">#D1000000</color>
+    <color name="colorTextBlackSecondary">#8A000000</color>
+    <color name="colorTextBlackDisabled">#61000000</color>
+    <color name="colorTextBlackSeparator">#1F000000</color>
+
+    <!--White Text -->
+    <color name="colorTextWhitePrimary">#ffffff</color>
+    <color name="colorTextWhiteSecondary">#B2ffffff</color>
+    <color name="colorTextWhiteDisabled">#7fffffff</color>
+    <color name="colorTextWhiteSeparator">#1fffffff</color>
+
+    <color name="token_background_enabled">#F5F5F5</color>
 </resources>

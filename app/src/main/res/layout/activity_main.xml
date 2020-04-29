@@ -1,9 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="service"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/containerMainParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.roninaks.enqueue.activities.MainActivity">
+        <!-- Background Image -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:translationZ="-1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_main_bg"
+            android:contentDescription="@string/main_background"/>
+        <!-- Header Area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ll_container_header"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/main_activity_top_margin"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin">
+            <!-- Back Navigation -->
+            <ImageView
+                android:layout_width="@dimen/back_navigation_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_back"
+                android:src="@drawable/ic_back"
+                android:layout_marginEnd="@dimen/standard_gap"
+                android:contentDescription="@string/back_navigation"/>
+            <!-- Drop Down -->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/spinner_layer_bg"
+                android:gravity="center_vertical"
+                android:weightSum="4"
+                android:paddingStart="@dimen/standard_gap_medium"
+                android:paddingEnd="@dimen/standard_gap_medium"
+                android:paddingTop="@dimen/standard_gap"
+                android:paddingBottom="@dimen/standard_gap"
+                android:id="@+id/rl_container_drop_down"
+                android:elevation="@dimen/standard_gap_large"
+                android:clipToPadding="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size"
+                    android:textColor="@color/colorTextBlackPrimary"
+                    android:layout_marginTop="@dimen/standard_gap_small"
+                    android:layout_marginBottom="@dimen/standard_gap_small"
+                    android:text="@{service.serviceName + String.valueOf(' ') + String.valueOf('(') + service.description + String.valueOf(')')}"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_service_name"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textStyle="bold"
+                    android:layout_toStartOf="@id/img_spinner_down"/>
+                <ImageView
+                    android:layout_width="@dimen/back_navigation_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_down_arrow"
+                    android:id="@+id/img_spinner_down"
+                    android:contentDescription="@string/spinner_down_arrow"/>
+            </RelativeLayout>
+            <!-- Add Button -->
+            <LinearLayout
+                android:layout_width="@dimen/round_button_size"
+                android:layout_height="@dimen/round_button_size"
+                android:background="@drawable/rounded_rectangle_orange_bg"
+                android:gravity="center"
+                android:id="@+id/ll_container_add"
+                android:layout_marginStart="@dimen/standard_gap">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/more_icon_size"
+                    android:src="@drawable/ic_add"
+                    android:id="@+id/img_add"
+                    android:contentDescription="@string/add"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- Fragment Area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_above="@id/navigation"
+            android:layout_below="@id/ll_container_header">
+            <!-- Fragment Container -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content">
+            </FrameLayout>
+            <!-- Search Container -->
+        </LinearLayout>
+        <!-- Bottom Navigation -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/navigation"
+            android:weightSum="3"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:paddingStart="@dimen/standard_gap_large"
+            android:paddingEnd="@dimen/standard_gap_large"
+            android:paddingTop="@dimen/standard_gap_medium"
+            android:paddingBottom="@dimen/standard_gap_medium">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/navigation_service"
+                android:id="@+id/tv_nav_service"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextWhiteSecondary"
+                android:textSize="@dimen/title_size"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:layout_marginBottom="@dimen/standard_gap_small"
+                android:textAllCaps="true"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/navigation_queue"
+                android:id="@+id/tv_nav_queue"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextWhiteSecondary"
+                android:textSize="@dimen/title_size"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:layout_marginBottom="@dimen/standard_gap_small"
+                android:textAllCaps="true"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/navigation_manage"
+                android:id="@+id/tv_nav_manage"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextWhiteSecondary"
+                android:textSize="@dimen/title_size"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:layout_marginBottom="@dimen/standard_gap_small"
+                android:textAllCaps="true"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

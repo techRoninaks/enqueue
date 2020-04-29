@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 
 import com.roninaks.enqueue.R;
+import com.roninaks.enqueue.interfaces.SqlDelegate;
 
 
 public class EmailHelper {
@@ -98,15 +99,20 @@ public class EmailHelper {
         if(sender.isEmpty())
             sender = context.getString(R.string.email_sender);
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("CinemaClub", 0);
-        String prefix = "User: " + sharedPreferences.getString("username", "") + "\n\n";
+        SharedPreferences sharedPreferences = context.getSharedPreferences(StringHelper.SHARED_PREFERENCE_KEY, 0);
+        String prefix = "User: " + sharedPreferences.getInt(StringHelper.SHARED_PREFERENCE_USER_ID, -1) + "\n\n";
         try {
             prefix += Build.MANUFACTURER + ": " + Build.DEVICE + "\n\n";
         }catch (Exception e){
 
         }
         body = prefix + body;
-        SqlHelper sqlHelper = new SqlHelper(context);
+        SqlHelper sqlHelper = new SqlHelper(context, new SqlDelegate() {
+            @Override
+            public void onResponse(SqlHelper sqlHelper) {
+
+            }
+        });
         sqlHelper.setMethod("POST");
         sqlHelper.setExecutePath("send-mail.php");
         ContentValues params = new ContentValues();
@@ -118,7 +124,8 @@ public class EmailHelper {
         params.put("cc", cc);
         sqlHelper.setParams(params);
         sqlHelper.setService(true);
-        sqlHelper.executeUrl(false);
+//        sqlHelper.executeUrl(false);
+        //TODO create email php
     }
 
 }

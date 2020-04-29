@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="queue"
+            type="com.roninaks.enqueue.models.QueueModel" />
+        <variable
+            name="service"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+        <import type="com.roninaks.enqueue.helpers.StringHelper"/>
+    </data>
+    <LinearLayout
+        android:id="@+id/ll_container_master"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/queue_horizontal_bg"
+        android:paddingStart="@dimen/standard_gap_medium"
+        android:paddingEnd="@dimen/standard_gap_medium"
+        android:elevation="@dimen/standard_gap_large"
+        android:clipToPadding="false">
+        <!-- Token -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_token"
+            android:textAlignment="center"
+            android:text="@{StringHelper.generateTokenNumber(service.serviceName, queue.token)}"
+            android:textSize="@dimen/stats_size"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/standard_gap_large"
+            android:layout_marginBottom="@dimen/standard_gap"/>
+        <!-- Name -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_name"
+            android:textAlignment="center"
+            android:text="@{queue.userName}"
+            android:textSize="@dimen/super_title_size"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:layout_marginTop="@dimen/standard_gap_extra_small"
+            android:layout_marginBottom="@dimen/standard_gap_small"
+            android:textStyle="bold"/>
+        <!-- Phone -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_phone"
+            android:textAlignment="center"
+            android:text="@{queue.phoneNumber}"
+            android:textSize="@dimen/subtitle_size"
+            android:textColor="@color/colorTextBlackSecondary"
+            android:layout_marginTop="@dimen/standard_gap_extra_small"
+            android:layout_marginBottom="@dimen/standard_gap_small"/>
+        <!-- Status -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_status"
+            android:textAlignment="center"
+            android:text="@{queue.status.equalsIgnoreCase(@string/queue_status_repeat_one) ? @string/queue_status_repeat_one_string : queue.status.equalsIgnoreCase(@string/queue_status_repeat_two) ? @string/queue_status_repeat_two_string : StringHelper.toTitleCase(queue.status)}"
+            android:textSize="@dimen/subtitle_size"
+            android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @color/colorPrimary : queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorStringCompleted : queue.status.equalsIgnoreCase(@string/queue_status_pending) ? @color/colorTextBlackPrimary : @color/colorStringInActive}"
+            android:layout_marginBottom="@dimen/standard_gap_small"/>
+        <!-- Time -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_service_time"
+            android:textAlignment="center"
+            android:text="@{StringHelper.setAvgWaitingTimeFormatted(queue.servicedTime)}"
+            android:textSize="@dimen/super_title_size"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:layout_marginTop="@dimen/standard_gap_extra_small"
+            android:layout_marginBottom="@dimen/standard_gap_large"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+        <!-- Chronometer -->
+        <Chronometer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cm_service_time"
+            android:textAlignment="center"
+            android:text="@{queue.status.equalsIgnoreCase(@string/queue_status_completed) ? StringHelper.setAvgWaitingTimeFormatted(queue.servicedTime) : StringHelper.setAvgWaitingTimeFormatted(queue.token * service.avgWaitingTime)}"
+            android:textSize="@dimen/super_title_size"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:layout_marginTop="@dimen/standard_gap_extra_small"
+            android:layout_marginBottom="@dimen/standard_gap_large"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</layout>

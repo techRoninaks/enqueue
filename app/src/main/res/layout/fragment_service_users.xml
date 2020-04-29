@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="serviceData"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+
+        <import type="com.roninaks.enqueue.helpers.StringHelper" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.ServiceUsers">
+        <RelativeLayout
+            android:id="@+id/llContainerMaster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/standard_gap_extra_large"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <!-- Stats Section -->
+            <LinearLayout
+                android:id="@+id/ll_container_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginBottom="@dimen/standard_gap_small"
+                android:layout_alignParentTop="true"
+                android:baselineAligned="false">
+                <!-- Total Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_waiting_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(serviceData.waitingCount + serviceData.served)}"
+                        android:textColor="@color/colorTextBlackPrimary"
+                        android:textSize="@dimen/stats_size" />
+
+                    <TextView
+                        android:id="@+id/tv_waiting_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:text="@string/fsriq_total"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Waiting Count Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_waiting_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(serviceData.waitingCount)}"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/stats_size" />
+
+                    <TextView
+                        android:id="@+id/tv_waiting_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:text="@string/fsriq_waiting_count"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Served Count Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_served_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(serviceData.served)}"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/stats_size" />
+
+                    <TextView
+                        android:id="@+id/tv_served_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:text="@string/fsriq_served_count"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Users List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_gap_medium"
+                android:id="@+id/rv_queue"
+                android:layout_marginStart="@dimen/main_margin"
+                android:layout_marginEnd="@dimen/main_margin"
+                android:layout_below="@id/ll_container_stats"/>
+            <!-- No Results -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_search_no_results"
+                android:textColor="@color/colorTextBlackSecondary"
+                android:textSize="@dimen/title_size"
+                android:layout_below="@+id/ll_container_stats"
+                android:text="@string/service_no_services"
+                android:textAlignment="center"
+                android:visibility="gone"/>
+            <!-- Search Button -->
+            <LinearLayout
+                android:layout_width="@dimen/search_button_size"
+                android:layout_height="@dimen/search_button_size"
+                android:background="@drawable/rounded_rectangle_orange_bg"
+                android:gravity="center"
+                android:id="@+id/ll_container_search"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:elevation="@dimen/standard_gap_large"
+                android:layout_marginBottom="@dimen/standard_gap_medium"
+                android:layout_marginEnd="@dimen/standard_gap_medium">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/more_icon_size"
+                    android:src="@drawable/ic_search"
+                    android:id="@+id/img_search"
+                    android:contentDescription="@string/search"/>
+            </LinearLayout>
+            <!-- Search Field -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_button_size"
+                android:inputType="text"
+                android:background="@drawable/search_view_drawable"
+                android:layout_margin="@dimen/standard_gap_medium"
+                android:elevation="@dimen/standard_gap_medium"
+                android:layout_alignParentBottom="true"
+                android:textSize="@dimen/stats_size"
+                android:visibility="gone"
+                android:id="@+id/et_search"
+                android:hint="@string/enter_search_cost"/>
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

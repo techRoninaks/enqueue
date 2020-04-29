@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="mode"
+            type="Integer" />
+        <variable
+            name="service"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+        <variable
+            name="queue"
+            type="com.roninaks.enqueue.models.QueueModel" />
+        <import type="com.roninaks.enqueue.helpers.StringHelper"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.CreateTokenFragment">
+
+        <!-- Main Content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_container_master"
+            android:orientation="vertical"
+            android:background="@drawable/create_token_bg"
+            android:padding="@dimen/standard_gap_extra_large">
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_title"
+                android:text="@{mode == 0 ? @string/create_token_title_new : @string/create_token_title_edit}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/super_title_size"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/standard_gap"
+                android:layout_marginBottom="@dimen/standard_gap"
+                android:textAllCaps="true"/>
+            <!-- Token Number -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_token"
+                android:text="@{StringHelper.generateTokenNumber(service.serviceName, queue.token)}"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:textSize="@dimen/stats_size"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/standard_gap_small"/>
+            <!-- Average Time -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/ll_container_time"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/standard_gap_extra_small"
+                android:layout_marginBottom="@dimen/standard_gap_small">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_est_time"
+                    android:text="@string/queue_estimated_time"
+                    android:textSize="@dimen/title_size"
+                    android:textColor="@color/colorTextBlackPrimary"
+                    android:layout_marginEnd="@dimen/standard_gap_extra_small"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_est_time_value"
+                    android:text="@{queue.status.equalsIgnoreCase(@string/queue_status_completed) ? StringHelper.setAvgWaitingTimeFormatted(queue.servicedTime) : StringHelper.setAvgWaitingTimeFormatted(queue.token * service.avgWaitingTime)}"
+                    android:textSize="@dimen/title_size"
+                    android:textColor="@color/colorTextBlackPrimary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+            <!-- Name -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/subtitle_size"
+                android:hint="@string/create_token_et_name"
+                android:layout_marginTop="@dimen/standard_gap"
+                android:layout_marginBottom="@dimen/standard_gap_small"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:inputType="text"
+                android:id="@+id/et_name"
+                android:background="@drawable/create_token_et_bg"
+                android:padding="@dimen/standard_gap"
+                android:text="@{queue.userName}"/>
+            <!-- Phone -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/subtitle_size"
+                android:hint="@string/create_token_et_phone"
+                android:layout_marginTop="@dimen/standard_gap"
+                android:layout_marginBottom="@dimen/standard_gap_large"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:inputType="phone"
+                android:id="@+id/et_phone"
+                android:background="@drawable/create_token_et_bg"
+                android:padding="@dimen/standard_gap"
+                android:text="@{queue.phoneNumber}"/>
+            <!-- Create Token Button -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{mode == 0 ? @string/create_token : @string/edit_token}"
+                android:id="@+id/btn_create_token"
+                android:background="@drawable/button_background_filled_primary"
+                android:textColor="@color/colorTextWhitePrimary"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/standard_gap_small"/>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="serviceData"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+        <import type="com.roninaks.enqueue.helpers.StringHelper"/>
+        <import type="android.view.View"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.ServiceIndividualQueue"
+        android:id="@+id/container">
+        <!-- Main Content Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:id="@+id/llContainerMaster"
+            android:layout_marginTop="@dimen/standard_gap_extra_large"
+            android:visibility="@{serviceData.status.equalsIgnoreCase(@string/service_status_active) ? View.VISIBLE : View.GONE}">
+            <!-- Stats Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_container_stats"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:baselineAligned="false">
+                <!-- Waiting Count Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_waiting_count"
+                        android:text="@{String.valueOf(serviceData.waitingCount)}"
+                        android:textSize="@dimen/stats_size"
+                        android:textColor="@color/colorPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_waiting_text"
+                        android:text="@string/fsriq_waiting_count"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+                <!-- Waiting Time Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_waiting_time"
+                        android:text="@{StringHelper.setAvgWaitingTimeFormatted(serviceData.avgWaitingTime)}"
+                        android:textSize="@dimen/stats_size"
+                        android:textColor="@color/colorTextBlackPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_waiting_time_text"
+                        android:text="@string/fsriq_waiting_time"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+                <!-- Served Count Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_served_count"
+                        android:text="@{String.valueOf(serviceData.served)}"
+                        android:textSize="@dimen/stats_size"
+                        android:textColor="@color/colorPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_served_text"
+                        android:text="@string/fsriq_served_count"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/subtitle_size"
+                        android:textColor="@color/colorTextBlackSecondary"
+                        android:layout_marginTop="@dimen/standard_gap_small"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Tokens Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_container_tokens"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/standard_gap_extra_large"
+                android:layout_marginBottom="@dimen/standard_gap_extra_large">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_pager_height"
+                    android:id="@+id/vp_tokens"
+                    android:paddingStart="@dimen/view_pager_side"
+                    android:paddingEnd="@dimen/view_pager_side"/>
+            </LinearLayout>
+            <!-- Delete Token Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_container_delete"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/standard_gap_large">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fsriq_button_delete_token"
+                    android:layout_marginStart="@dimen/standard_gap_large"
+                    android:layout_marginEnd="@dimen/standard_gap"
+                    android:id="@+id/btn_delete_token"
+                    android:background="@drawable/button_background_filled"
+                    android:textColor="@color/colorStringInActive" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fsriq_button_not_present"
+                    android:layout_marginEnd="@dimen/standard_gap_large"
+                    android:layout_marginStart="@dimen/standard_gap"
+                    android:id="@+id/btn_not_present"
+                    android:background="@drawable/button_background_filled"
+                    android:textColor="@color/colorTextBlackPrimary" />
+            </LinearLayout>
+            <!-- Next Token Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_container_next"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/standard_gap_large">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fsriq_button_next_token"
+                    android:layout_marginEnd="@dimen/standard_gap"
+                    android:layout_marginStart="@dimen/standard_gap"
+                    android:id="@+id/btn_next_token"
+                    android:background="@drawable/button_background_filled_primary"
+                    android:textColor="@color/colorTextWhitePrimary" />
+            </LinearLayout>
+            <!-- Stop Service Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_container_stop"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fsriq_stop_service"
+                    android:layout_marginStart="@dimen/standard_gap_large"
+                    android:layout_marginEnd="@dimen/standard_gap"
+                    android:id="@+id/tv_stop_service"
+                    android:textAllCaps="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorStringInActive"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fsriq_take_break"
+                    android:layout_marginStart="@dimen/standard_gap"
+                    android:layout_marginEnd="@dimen/standard_gap_large"
+                    android:id="@+id/tv_take_break"
+                    android:textAllCaps="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextBlackPrimary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- Status Info Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/ll_container_inactive"
+            android:gravity="center"
+            android:visibility="@{serviceData.status.equalsIgnoreCase(@string/service_status_inactive) || serviceData.status.equalsIgnoreCase(@string/service_status_break) ? View.VISIBLE : View.GONE}">
+            <!-- Power Button -->
+            <LinearLayout
+                android:layout_width="@dimen/search_button_size"
+                android:layout_height="@dimen/search_button_size"
+                android:background="@drawable/rounded_rectangle_orange_bg"
+                android:gravity="center"
+                android:id="@+id/ll_container_power"
+                android:elevation="@dimen/standard_gap_large">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/more_icon_size"
+                    android:src="@drawable/ic_power"
+                    android:id="@+id/img_resume"
+                    android:contentDescription="@string/start_stop_service"/>
+            </LinearLayout>
+            <!-- Text Info -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/super_title_size"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:layout_marginTop="@dimen/standard_gap_medium"
+                android:id="@+id/tv_status_info"
+                android:textAlignment="center"
+                android:text="@{StringHelper.getServiceStatusInfoText(serviceData.status)}"/>
+            <!-- Subtitle text -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_status_info_subtitle"
+                android:textSize="@dimen/subtitle_size"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:textColor="@color/colorTextBlackSecondary"
+                android:text="@string/service_status_info_subtitle"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

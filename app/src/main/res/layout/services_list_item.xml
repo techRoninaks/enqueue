@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="service"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+        <import type="android.view.View"/>
+        <import type="com.roninaks.enqueue.helpers.StringHelper"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_container_master"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
+        android:layout_marginBottom="@dimen/standard_gap"
+        android:background="@drawable/lv_bg_rectangle"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_gap_medium"
+        android:paddingEnd="@dimen/standard_gap_medium"
+        android:elevation="@dimen/standard_gap_large"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/standard_gap_small">
+
+            <TextView
+                android:id="@+id/tv_service_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{StringHelper.toTitleCase(service.serviceName)}"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/standard_gap"/>
+
+            <TextView
+                android:id="@+id/tv_service_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:text="@{StringHelper.toSentenceCase(service.description)}"
+                android:textColor="@color/colorTextBlackSecondary"
+                android:textSize="@dimen/subtitle_size" />
+
+            <LinearLayout
+                android:id="@+id/ll_container_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:layout_marginBottom="@dimen/standard_gap"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/standard_gap"
+                    android:text="@{StringHelper.toTitleCase(service.status)}"
+                    android:textColor="@{service.status.equalsIgnoreCase(@string/service_status_active) ? @color/colorStringActive : service.status.equalsIgnoreCase(@string/service_status_inactive)? @color/colorStringInActive : @color/colorStringBreak}" />
+
+                <View
+                    android:id="@+id/separator_status"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/standard_gap_extra_small"
+                    android:layout_marginBottom="@dimen/standard_gap_extra_small"
+                    android:background="@color/colorTextBlackSeparator"
+                    android:visibility="@{service.status.equalsIgnoreCase(@string/service_status_active) ? View.VISIBLE : View.GONE}"/>
+
+                <TextView
+                    android:id="@+id/tv_waiting_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_gap"
+                    android:text="@{String.valueOf(service.waitingCount)}"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="@{service.status.equalsIgnoreCase(@string/service_status_active) ? View.VISIBLE : View.GONE}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_more"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/more_icon_size"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_more_black"
+            android:layout_marginEnd="@dimen/standard_gap_small"
+            android:contentDescription="@string/more"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="queue"
+            type="com.roninaks.enqueue.models.QueueModel" />
+        <variable
+            name="service"
+            type="com.roninaks.enqueue.models.ServicePrimaryModel" />
+        <import type="com.roninaks.enqueue.helpers.StringHelper"/>
+        <import type="android.view.View"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rl_container_master"
+        android:padding="@dimen/standard_gap"
+        android:background="@drawable/lv_bg_rectangle"
+        android:layout_marginBottom="@dimen/standard_gap"
+        android:elevation="@dimen/standard_gap_large"
+        android:clipToPadding="false">
+        <!-- Token Area -->
+        <RelativeLayout
+            android:layout_width="@dimen/token_background_size"
+            android:layout_height="@dimen/token_background_size"
+            android:id="@+id/rl_container_token"
+            android:layout_alignParentStart="true"
+            android:background="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) || queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @drawable/token_bg_disabled : queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @drawable/token_bg_active : @drawable/token_bg_enabled}">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_token"
+                android:textSize="@dimen/super_title_size"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:textAlignment="center"
+                android:text="@{StringHelper.generateTokenNumber(service.serviceName, queue.token)}"
+                android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) || queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackDisabled : queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @color/colorTextWhitePrimary : @color/colorTextBlackPrimary}"/>
+        </RelativeLayout>
+        <!-- Text Area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/rl_container_token"
+            android:layout_toStartOf="@+id/img_more"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/standard_gap"
+            android:layout_marginEnd="@dimen/standard_gap">
+            <!-- Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_name"
+                android:textSize="@dimen/title_size"
+                android:text="@{queue.userName}"
+                android:textStyle="bold"
+                android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) || queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackSecondary : @color/colorTextBlackPrimary}"/>
+            <!-- Phone -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_phone"
+                android:textSize="@dimen/subtitle_size"
+                android:text="@{queue.phoneNumber}"
+                android:layout_marginTop="@dimen/standard_gap_small"
+                android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) || queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackDisabled : @color/colorTextBlackSecondary}"/>
+            <!-- Duration and Status -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/ll_container_status_duration"
+                android:layout_marginTop="@dimen/standard_gap_extra_small">
+                <!-- Status -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_status"
+                    android:textSize="@dimen/subtitle_size"
+                    android:text="@{queue.status.equalsIgnoreCase(@string/queue_status_repeat_one) ? @string/queue_status_repeat_one_string : queue.status.equalsIgnoreCase(@string/queue_status_repeat_two) ? @string/queue_status_repeat_one_string : StringHelper.toTitleCase(queue.status)}"
+                    android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackDisabled : queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @color/colorPrimary : @color/colorStringInActive}"
+                    android:visibility="@{queue.status.equalsIgnoreCase(@string/queue_status_pending) ? View.GONE : View.VISIBLE}"
+                    android:layout_marginEnd="@dimen/standard_gap_extra_small"/>
+                <!-- Separator -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/standard_gap_extra_small"
+                    android:layout_marginBottom="@dimen/standard_gap_extra_small"
+                    android:layout_marginEnd="@dimen/standard_gap_extra_small"
+                    android:background="@color/colorTextBlackSeparator"
+                    android:visibility="@{queue.status.equalsIgnoreCase(@string/queue_status_repeat_one) || queue.status.equalsIgnoreCase(@string/queue_status_repeat_two) ? View.VISIBLE : View.GONE}"/>
+                <!-- Est time text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_est_time"
+                    android:textSize="@dimen/subtitle_size"
+                    android:textColor="@color/colorTextBlackPrimary"
+                    android:text="@string/queue_estimated_time"
+                    android:layout_marginEnd="@dimen/standard_gap_extra_small"
+                    android:visibility="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) || queue.status.equalsIgnoreCase(@string/queue_status_completed) || queue.status.equalsIgnoreCase(@string/queue_status_ongoing)? View.GONE : View.VISIBLE}"/>
+                <!-- Duration -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_duration"
+                    android:textSize="@dimen/subtitle_size"
+                    android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @color/colorPrimary : queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackDisabled : @color/colorTextBlackPrimary}"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/standard_gap_extra_small"
+                    android:visibility="gone"
+                    android:text="@{StringHelper.setAvgWaitingTimeFormatted(queue.servicedTime)}"/>
+                <!-- Chronometer -->
+                <Chronometer
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cm_duration"
+                    android:textSize="@dimen/subtitle_size"
+                    android:textColor="@{queue.status.equalsIgnoreCase(@string/queue_status_ongoing) ? @color/colorPrimary : queue.status.equalsIgnoreCase(@string/queue_status_completed) ? @color/colorTextBlackDisabled : @color/colorTextBlackPrimary}"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/standard_gap_extra_small"
+                    android:visibility="@{queue.status.equalsIgnoreCase(@string/queue_status_cancelled) ? View.GONE : View.VISIBLE}"
+                    android:text="@{queue.status.equalsIgnoreCase(@string/queue_status_completed) ? StringHelper.setAvgWaitingTimeFormatted(queue.servicedTime) : StringHelper.setAvgWaitingTimeFormatted(queue.token * service.avgWaitingTime)}"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/img_more"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/more_icon_size"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_more_black"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/more"/>
+    </RelativeLayout>
+</layout>
