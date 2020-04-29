@@ -19,16 +19,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginBottom="@dimen/main_margin">
         <!-- Logo Image -->
         <ImageView
             android:layout_width="@dimen/services_logo_size"
             android:layout_height="@dimen/services_logo_size"
             android:src="@drawable/logo"
-            android:layout_marginTop="@dimen/standard_gap_large"
-            android:layout_marginBottom="@dimen/standard_gap_small"
+            android:layout_marginTop="@dimen/standard_gap_extra_large"
+            android:layout_marginBottom="@dimen/standard_gap_extra_large"
             android:id="@+id/img_logo"
             android:contentDescription="@string/application_logo"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/super_title_size"
+            android:textStyle="bold"
+            android:text="@string/login_activity_title"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:textAlignment="center"/>
         <!-- Email -->
         <EditText
             android:layout_width="match_parent"
@@ -37,8 +48,11 @@
             android:layout_marginStart="@dimen/main_margin"
             android:layout_marginEnd="@dimen/main_margin"
             android:layout_marginBottom="@dimen/standard_gap"
+            android:layout_marginTop="@dimen/standard_gap_extra_large"
             android:inputType="textEmailAddress"
-            android:hint="@string/email_hint"/>
+            android:hint="@string/email_hint"
+            android:background="@drawable/login_edit_text"
+            android:padding="@dimen/standard_gap"/>
         <!-- Password -->
         <EditText
             android:layout_width="match_parent"
@@ -48,7 +62,9 @@
             android:layout_marginEnd="@dimen/main_margin"
             android:layout_marginTop="@dimen/standard_gap"
             android:inputType="textPassword"
-            android:hint="@string/password_hint"/>
+            android:hint="@string/password_hint"
+            android:background="@drawable/login_edit_text"
+            android:padding="@dimen/standard_gap"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +72,8 @@
             android:text="@string/forgot_password"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/standard_gap_large"/>
         <!-- Submit Button -->
         <Button
             android:layout_width="wrap_content"
@@ -66,7 +83,9 @@
             android:padding="@dimen/standard_gap_small"
             android:textAllCaps="true"
             android:textColor="@color/colorTextWhitePrimary"
-            android:background="@drawable/button_background_filled_primary"/>
+            android:background="@drawable/button_background_filled_primary"
+            android:layout_marginBottom="@dimen/standard_gap_extra_large"
+            android:layout_marginTop="@dimen/standard_gap_large"/>
     </LinearLayout>
     <!-- Footer -->
     <TextView

@@ -86,5 +86,6 @@
     <string name="edit_token">Edit Token</string>
     <string name="create_token_et_phone">Phone</string>
     <string name="queue_edit_item">Edit Queue</string>
+    <string name="login_activity_title">Login</string>
 
 </resources>
