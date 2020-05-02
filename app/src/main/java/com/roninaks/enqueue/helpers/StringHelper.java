@@ -23,9 +23,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -39,6 +41,7 @@ public class StringHelper {
     public static String SHARED_PREFERENCE_LAST_QUEUE_ID = "last_queue_id";
     public static String SHARED_PREFRENCE_SERVICE_REFRESH = "service_refresh";
     public static String SHARED_PREFRENCE_SERVICE_REFRESH_TIMEOUT = "service_refresh_timeout";
+    public static String SHARED_PREFERENCE_USER_RESET = "password_reset";
     public static String SHARED_PREFERENCE_KEY = "enqueue";
 
 
@@ -243,6 +246,16 @@ public class StringHelper {
     public static float roundFloat(float number, int precision) {
         int scale = (int) Math.pow(10, precision);
         return (float) Math.round(number * scale) / scale;
+    }
+
+    public static String generateOtp(int numOfDigits){
+        String numbers = "1234567890";
+        Random random = new Random();
+        String otp = "";
+        for(int i = 0; i < numOfDigits ; i++) {
+            otp = otp.concat(String.valueOf(numbers.charAt(random.nextInt(numbers.length()))));
+        }
+        return otp;
     }
 
     /***

@@ -34,4 +34,7 @@
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
 
+    <!-- Manage Popup -->
+    <dimen name="manage_popup_bottom_margin">50dp</dimen>
+
 </resources>

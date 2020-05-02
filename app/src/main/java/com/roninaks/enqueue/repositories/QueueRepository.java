@@ -150,7 +150,7 @@ public class QueueRepository {
                             }).start();
 
                         } else {
-                            Toast.makeText(context, context.getString(R.string.invalid_cred), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, context.getString(R.string.empty_queue), Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         EmailHelper emailHelper = new EmailHelper(context, EmailHelper.TECH_SUPPORT, "Error: ServicesPrimaryRepository - refreshAll", e.getMessage() + "\n" + StringHelper.convertStackTrace(e));

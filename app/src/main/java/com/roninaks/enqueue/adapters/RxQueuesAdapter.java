@@ -51,7 +51,7 @@ public class RxQueuesAdapter extends RecyclerView.Adapter<RxQueuesAdapter.ViewHo
         if (inflateType == INFLATE_TYPE_HORIZONTAL) {
             holder.mHorizontalBinding.setQueue(queueModels.get(position));
             holder.mHorizontalBinding.setService(servicePrimaryModel);
-            if(queueModels.get(position).getStatus().equals(context.getString(R.string.queue_status_ongoing))){
+            if(queueModels.get(position).getStatus().equals(context.getString(R.string.queue_status_ongoing)) && servicePrimaryModel.getStatus().equals(context.getString(R.string.service_status_active))){
                 holder.mHorizontalBinding.cmServiceTime.setBase(queueModels.get(position).getStartTime());
                 holder.mHorizontalBinding.cmServiceTime.start();
             }else{

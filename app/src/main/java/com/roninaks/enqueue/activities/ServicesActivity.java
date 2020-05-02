@@ -18,6 +18,7 @@ import com.roninaks.enqueue.R;
 import com.roninaks.enqueue.adapters.RvServicesAdapter;
 import com.roninaks.enqueue.databinding.ActivityServicesBinding;
 import com.roninaks.enqueue.helpers.StringHelper;
+import com.roninaks.enqueue.helpers.UserHelper;
 import com.roninaks.enqueue.models.ServicePrimaryModel;
 import com.roninaks.enqueue.models.UserModel;
 import com.roninaks.enqueue.viewmodels.ServicePrimaryViewModel;
@@ -164,6 +165,7 @@ public class ServicesActivity extends AppCompatActivity {
         });
 
     }
+
     private void setupObservers() {
         //ServicePrimaryModel Observer
         servicePrimaryModelObserver = new Observer<List<ServicePrimaryModel>>() {
@@ -185,6 +187,7 @@ public class ServicesActivity extends AppCompatActivity {
             public void onChanged(UserModel userModel) {
                 if (userModel != null) {
                     mBinding.setUser(userModel);
+                    UserHelper.userModel = userModel;
                 }
             }
         });

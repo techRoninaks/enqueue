@@ -64,7 +64,10 @@
             android:inputType="textPassword"
             android:hint="@string/password_hint"
             android:background="@drawable/login_edit_text"
-            android:padding="@dimen/standard_gap"/>
+            android:padding="@dimen/standard_gap"
+            android:nextFocusForward="@id/btn_submit"
+            android:imeOptions="actionDone"/>
+        <!-- Forgot Password -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +16,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.roninaks.enqueue.R;
 import com.roninaks.enqueue.helpers.EmailHelper;
 import com.roninaks.enqueue.helpers.StringHelper;
+import com.roninaks.enqueue.helpers.UserHelper;
 import com.roninaks.enqueue.models.UserModel;
 import com.roninaks.enqueue.viewmodels.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextUsername, editTextPassword;
+    private TextView tvForgotPassword;
     private Button btnSubmit;
     private UserViewModel userViewModel;
     private int userId = -1;
@@ -35,18 +38,31 @@ public class LoginActivity extends AppCompatActivity {
         //Set default values
         editTextUsername = (EditText) findViewById(R.id.et_username);
         editTextPassword = (EditText) findViewById(R.id.et_password);
+        tvForgotPassword = (TextView) findViewById(R.id.tv_forgot_password);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
+
+        //Onclick listeners
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateSignIn()) {
-                    btnSubmit.setEnabled(false);
-                    btnSubmit.setBackground(getDrawable(R.drawable.button_background_filled_disabled));
-                    attemptLogin(getString(R.string.default_signin), editTextUsername.getText().toString());
+                switch (view.getId()){
+                    case R.id.btn_submit:{
+                        if (validateSignIn()) {
+                            btnSubmit.setEnabled(false);
+                            btnSubmit.setBackground(getDrawable(R.drawable.button_background_filled_disabled));
+                            attemptLogin(getString(R.string.default_signin), editTextUsername.getText().toString());
+                        }
+                    }
+                    break;
+                    case R.id.tv_forgot_password:{
+                        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                    }
+                    break;
                 }
             }
         };
         btnSubmit.setOnClickListener(onClickListener);
+        tvForgotPassword.setOnClickListener(onClickListener);
     }
 
     /***
@@ -94,8 +110,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String password = userModel.getPassword();
                                 if (password.equals(StringHelper.encryptPassword(editTextPassword.getText().toString(), StringHelper.hexStringToByteArray(password.split(":")[0])))) {
                                     userId = userModel.getUserId();
+                                    UserHelper.userModel = userModel;
                                     SharedPreferences sharedPreferences = getSharedPreferences(StringHelper.SHARED_PREFERENCE_KEY, 0);
                                     sharedPreferences.edit().putInt(StringHelper.SHARED_PREFERENCE_USER_ID, userId).apply();
+                                    sharedPreferences.edit().putBoolean(StringHelper.SHARED_PREFERENCE_USER_RESET, false).apply();
                                     Intent intent = new Intent(LoginActivity.this, ServicesActivity.class);
                                     intent.putExtra(ServicesActivity.INTENT_PARAM_USERID, userId);
                                     startActivity(intent);

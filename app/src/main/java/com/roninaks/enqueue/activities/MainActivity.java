@@ -1,5 +1,6 @@
 package com.roninaks.enqueue.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -10,25 +11,27 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.roninaks.enqueue.R;
 import com.roninaks.enqueue.databinding.ActivityMainBinding;
 import com.roninaks.enqueue.fragments.CreateTokenFragment;
-import com.roninaks.enqueue.fragments.ManageFragment;
 import com.roninaks.enqueue.fragments.ServiceIndividualQueue;
 import com.roninaks.enqueue.fragments.ServiceUsers;
 import com.roninaks.enqueue.helpers.StringHelper;
+import com.roninaks.enqueue.helpers.UserHelper;
 import com.roninaks.enqueue.models.ServicePrimaryModel;
 import com.roninaks.enqueue.viewmodels.ServicePrimaryViewModel;
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding mBinding;
     private int serviceId = -1;
     private int userId = -1;
+    private final int argCount = 4;
     private AlertDialog alertDialog;
 
     /***
@@ -123,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
                 case R.id.tv_nav_manage: {
-                    ManageFragment fragment = ManageFragment.newInstance(serviceId);
-                    initFragment(fragment, NAVIGATION_FRAGMENT_TAG_MANAGE);
-                    toggleSelection(v.getId());
+                    mBinding.llContainerManageList.setVisibility(View.VISIBLE);
                 }
-                    break;
+                break;
+                case R.id.ll_container_manage_list:{
+                    mBinding.llContainerManageList.setVisibility(View.GONE);
+                }
+                break;
             }
         }
     };
@@ -143,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.executePendingBindings();
 
+        //Manage Recycler View
+        mBinding.list.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.list.setAdapter(new ItemAdapter(argCount));
+
         //On click listeners
         mBinding.tvNavService.setOnClickListener(onNavigationItemClickListener);
         mBinding.tvNavQueue.setOnClickListener(onNavigationItemClickListener);
@@ -151,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.tvNavService.performClick();
         mBinding.imgAdd.setOnClickListener(onNavigationItemClickListener);
         mBinding.imgBack.setOnClickListener(onNavigationItemClickListener);
+        mBinding.llContainerManageList.setOnClickListener(onNavigationItemClickListener);
 
         //Viewmodels and observers
         servicePrimaryViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(ServicePrimaryViewModel.class);
@@ -246,11 +257,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void initFragment(DialogFragment fragment, String tag){
+    public void initFragment(DialogFragment fragment, String tag) {
         fragment.show(getSupportFragmentManager(), tag);
     }
 
-    public void initFragment(BottomSheetDialogFragment fragment, String tag){
+    public void initFragment(BottomSheetDialogFragment fragment, String tag) {
         fragment.show(getSupportFragmentManager(), tag);
     }
 
@@ -270,5 +281,72 @@ public class MainActivity extends AppCompatActivity {
             return fragmentManager.findFragmentByTag(fragmentTag);
         }
         return null;
+    }
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
+
+        final TextView text;
+        final View separator;
+
+        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.fragment_manage_list_dialog_item, parent, false));
+            text = itemView.findViewById(R.id.text);
+            separator = itemView.findViewById(R.id.separator);
+        }
+    }
+
+    private class ItemAdapter extends RecyclerView.Adapter<MainActivity.ViewHolder> {
+
+        private final int mItemCount;
+        private final String[] args = {"Create Token", "Dashboard", "Change Password", "Logout"};
+
+        ItemAdapter(int itemCount) {
+            mItemCount = itemCount;
+        }
+
+        @NonNull
+        @Override
+        public MainActivity.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new MainActivity.ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        }
+
+        @Override
+        public void onBindViewHolder(MainActivity.ViewHolder holder, final int position) {
+            holder.text.setText(args[position]);
+            holder.separator.setVisibility(position == args.length - 1 ? View.GONE : View.VISIBLE);
+            holder.text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (args[position]) {
+                        case "Create Token": {
+                            CreateTokenFragment fragment = CreateTokenFragment.newInstance(CreateTokenFragment.CREATE_TOKEN_MODE, 0, serviceId);
+                            initFragment(fragment, MainActivity.NAVIGATION_FRAGMENT_TAG_DIALOG);
+                        }
+                        break;
+                        case "Dashboard": {
+
+                        }
+                        break;
+                        case "Change Password": {
+                            Intent intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                            intent.putExtra(ChangePasswordActivity.INTENT_PARAM_MODE, ChangePasswordActivity.MODE_CHANGE_PASSWORD);
+                            startActivity(intent);
+                        }
+                        break;
+                        case "Logout": {
+                            UserHelper userHelper = new UserHelper(MainActivity.this);
+                            userHelper.logout();
+                        }
+                        break;
+                    }
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mItemCount;
+        }
+
     }
 }

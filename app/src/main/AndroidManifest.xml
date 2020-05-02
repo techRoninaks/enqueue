@@ -14,14 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ServicesActivity"
+        <activity android:name=".activities.ForgotPasswordActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ChangePasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.ServicesActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.NoInternetActivity" />
-        <activity android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SplashScreen"
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

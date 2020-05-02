@@ -118,7 +118,16 @@ public class UserModel extends EntityxBridge {
 
     @Override
     public JSONObject exportToJson() throws Exception {
-        return null;
+        UserModelx userModelx = new UserModelx();
+        for(Field field : this.getClass().getDeclaredFields()){
+            try {
+                Field fieldx = userModelx.getClass().getDeclaredField(field.getName());
+                fieldx.set(userModelx, field.get(this));
+            }catch (NoSuchFieldException e){
+                //Ignore the field
+            }
+        }
+        return userModelx.exportToJson();
     }
 
 }

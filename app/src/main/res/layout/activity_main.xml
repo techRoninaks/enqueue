@@ -110,6 +110,24 @@
             </FrameLayout>
             <!-- Search Container -->
         </LinearLayout>
+        <!-- Manage List -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/standard_gap"
+            android:layout_above="@id/navigation"
+            android:id="@+id/ll_container_manage_list"
+            android:background="@color/colorTextBlackSeparator"
+            android:visibility="gone"
+            android:gravity="bottom">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                tools:listitem="@layout/fragment_manage_list_dialog_item"
+                android:background="@color/white_bg"/>
+        </LinearLayout>
         <!-- Bottom Navigation -->
         <LinearLayout
             android:layout_width="match_parent"

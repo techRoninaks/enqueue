@@ -22,6 +22,20 @@
     <string name="navigation_service">Service</string>
     <string name="navigation_queue">Queue</string>
     <string name="navigation_manage">Manage</string>
+    <string name="login_activity_title">Login</string>
+    <string name="confirm">Confirm</string>
+    <string name="change_password_activity_title">Change Password</string>
+    <string name="old_password_hint">Enter Old Password</string>
+    <string name="new_password_hint">Enter New Password</string>
+    <string name="confirm_password_hint">Enter New Password Again</string>
+    <string name="passowrd_mismatch">The passwords don\'t match</string>
+    <string name="incorrect_password">The password is incorrect</string>
+    <string name="previous_password">Password cannot be same as previous password</string>
+    <string name="password_change_successful">Password changed successfully</string>
+    <string name="forgot_password_activity_title">Forgot Password</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="resend_otp">Didn\'t receive OTP? Resend</string>
+
 
     <!-- Image Content Description -->
     <string name="main_background">Main Background Image</string>
@@ -86,6 +100,14 @@
     <string name="edit_token">Edit Token</string>
     <string name="create_token_et_phone">Phone</string>
     <string name="queue_edit_item">Edit Queue</string>
-    <string name="login_activity_title">Login</string>
 
+    <!-- Forgot Password -->
+    <string name="fp_stage_one">send_otp</string>
+    <string name="fp_stage_two">confirm_otp</string>
+    <string name="otp_hint">0</string>
+    <string name="otp_title">An OTP has been sent to your email</string>
+    <string name="back_to_login">Go back to login</string>
+    <string name="incorrect_otp">Incorrect OTP</string>
+    <string name="empty_queue">No one is currently in queue</string>
+    <string name="empty_service">Currently no services available</string>
 </resources>
