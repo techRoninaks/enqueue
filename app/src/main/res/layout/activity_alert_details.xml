@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="id"
+            type="int" />
+        <variable
+            name="type"
+            type="String" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.AlertDetails"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/notifications_margins"
+            android:layout_marginEnd="@dimen/notifications_margins"
+            android:layout_marginTop="@dimen/standard_gap_medium"
+            android:layout_marginBottom="@dimen/standard_gap">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_notificationid"
+                android:layout_marginEnd="@dimen/standard_gap_small"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:text="@string/notification_id"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextBlackSecondary"
+                android:text="@{String.valueOf(id)}"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/notifications_margins"
+            android:layout_marginEnd="@dimen/notifications_margins"
+            android:layout_marginBottom="@dimen/standard_gap_medium"
+            android:layout_marginTop="@dimen/standard_gap">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_notificationname"
+                android:layout_marginEnd="@dimen/standard_gap_small"
+                android:textColor="@color/colorTextBlackPrimary"
+                android:text="@string/notification_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextBlackSecondary"
+                android:text="@{type}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

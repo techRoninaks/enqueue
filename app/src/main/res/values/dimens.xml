@@ -37,4 +37,7 @@
     <!-- Manage Popup -->
     <dimen name="manage_popup_bottom_margin">50dp</dimen>
 
+    <!-- Notifications Activity -->
+    <dimen name="notifications_margins">40dp</dimen>
+
 </resources>

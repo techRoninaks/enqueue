@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.NotificationsActivity"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="@dimen/notifications_margins"
+        android:paddingEnd="@dimen/notifications_margins">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_triggered"
+            android:layout_marginTop="@dimen/standard_gap_medium"
+            android:layout_marginBottom="@dimen/standard_gap"
+            android:text="@string/notification_trigered"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_scheduled"
+            android:layout_marginTop="@dimen/standard_gap"
+            android:layout_marginBottom="@dimen/standard_gap"
+            android:text="@string/notification_scheduled"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_action"
+            android:layout_marginTop="@dimen/standard_gap"
+            android:layout_marginBottom="@dimen/standard_gap"
+            android:text="@string/notification_action"
+            android:visibility="gone"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_expandable"
+            android:layout_marginTop="@dimen/standard_gap"
+            android:layout_marginBottom="@dimen/standard_gap"
+            android:text="@string/notification_expandable"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_persistent"
+            android:layout_marginTop="@dimen/standard_gap"
+            android:layout_marginBottom="@dimen/standard_gap_medium"
+            android:text="@string/notification_persistent"/>
+    </LinearLayout>
+</layout>

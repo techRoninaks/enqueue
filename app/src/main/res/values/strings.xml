@@ -110,4 +110,13 @@
     <string name="incorrect_otp">Incorrect OTP</string>
     <string name="empty_queue">No one is currently in queue</string>
     <string name="empty_service">Currently no services available</string>
+
+    <!-- Notifications -->
+    <string name="notification_trigered">Trigerred</string>
+    <string name="notification_scheduled">Scheduled</string>
+    <string name="notification_persistent">Persistent</string>
+    <string name="notification_action">With Action</string>
+    <string name="notification_expandable">Expandable</string>
+    <string name="notification_id">Notification Id:</string>
+    <string name="notification_name">Notification Type:</string>
 </resources>
